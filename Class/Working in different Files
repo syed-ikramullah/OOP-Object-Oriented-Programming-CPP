@@ -1,0 +1,122 @@
+// Open visual Studio 2022, add a .cpp file.
+// In the Solution Explorer, write click on the name of the project.
+// Click on "add" and then on "Class".
+// You will get three files:
+    // 1: .h file
+    // 2: .cpp file
+    // 3: main.cpp
+
+
+                        //*****(.h) FILE********
+
+// This contains the prototypes of all the functions that are gonna be used.
+#include<iostream>
+using namespace std;
+
+class Student {
+	int age;
+	float gpa;
+	char* name;
+public:
+	void setname(char* n);
+	void setage(int a);
+	void setgpa(float c);
+	char* getname();
+	int getage();
+	float getgpa();
+	Student(const Student& obj1);
+	Student();
+	Student(const char* n, int a, float c);
+	~Student();
+};
+
+                        //*****(.cpp) FILE********
+
+// This contains the definitions of the functions whose prototypes are already included in .h file.
+#include"Student.h"		//We will define all the functions whose prototypes we had added in .h file
+
+	void Student::setname(char* n) {
+		int size = strlen(n);
+		char* name = new char[size + 1];
+		for (int i = 0; i < size; i++) {
+			name[i] = n[i];
+		}
+		name[size] = '\0';
+	}
+	void Student::setage(int a) {
+		age = a;
+	}
+	void Student::setgpa(float c) {
+		gpa = c;
+	}
+
+	char* Student::getname() {
+		int size = strlen(name);
+		char* temp = new char[size + 1];
+		for (int i = 0; i < size; i++) {
+			temp[i] = name[i];
+		}
+		temp[size] = '\0';
+
+		return temp;
+	}
+	int Student::getage() {
+		return age;
+	}
+	float Student::getgpa() {
+		return gpa;
+	}
+	Student::Student(const Student& obj1) {
+		age = obj1.age;
+		gpa = obj1.gpa;
+
+		int size = strlen(obj1.name);
+		name = new char[size + 1];
+		for (int i = 0; i < size; i++) {
+			name[i] = obj1.name[i];
+		}
+		name[size] = '\0';
+	}
+
+	Student::Student() {
+		age = 0;
+		gpa = 0;
+		name = NULL;
+		cout << "Default constructor";
+	}
+	Student::Student(const char* n, int a, float c) {
+		age = a;
+		gpa = c;
+		int len = strlen(n);
+		name = new char[len + 1];
+		for (int i = 0; i < len; i++) {
+			name[i] = n[i];
+		}
+		name[len] = '\0';
+	}
+	Student::~Student() {
+		cout << "Destructor" << endl;
+		delete[] name;
+	}
+
+                        //*****MAIN FILE********
+
+#include"Student.h"		// No need to include "iostream" and "namespace std" here cause it is already included in .h file
+						          // Class along with its definitions is in .h and.cpp files
+int main() {
+
+	Student obj1("syed", 21, 3.3);
+
+	Student obj2 = obj1;
+
+	cout << "name: " << obj1.getname() << endl;
+	cout << "age: " << obj1.getage() << endl;
+	cout << "gpa: " << obj1.getgpa() << endl;
+
+	cout << "name: " << obj2.getname() << endl;
+	cout << "age: " << obj2.getage() << endl;
+	cout << "gpa: " << obj2.getgpa() << endl;
+
+	system("pause");
+	return 0;
+}
