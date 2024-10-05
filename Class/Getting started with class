@@ -1,0 +1,106 @@
+
+#include<iostream>
+using namespace std;
+
+class Student {
+
+	// Attributes-----Data members
+
+private:	//Access specifiers:
+					//Public/private/protected
+          //Accessible Only in the body of class.
+					//We do not usually keep attributes public.
+					//We keep setters public through which we access attributes.
+	int Age;
+	float CGPA;
+	char* Name;
+
+
+	//Methods - functionalities------------------Generally public
+
+	//Setters
+	//Public methods used to set values of private attributes
+	//Void functions-Non value returning functions
+	//syntax ------ setATTRIBUTENAME
+	// 1 parameter ------------ datatype
+	// datatype of parameter = datatype of the attribute you are modifying the value
+
+public:		//Accessible anywhere in the program.
+	void setAge(int A) {		//Definition
+		Age = A;
+	}
+	void setCGPA(float C) {
+		CGPA = C;
+	}
+	void setName(char* N) {
+		
+		//int length = strlen(N);
+		int length = 5;
+		char* Name = new char[length + 1];
+
+		for (int i = 0; i < length; i++) {
+			Name[i] = N[i];
+		}
+		Name[length] = '\0';
+		delete[] Name;
+	}
+
+	// Getters
+	// Public methods used to get values of private attributes
+	// Value returning functions
+	// Return type = datatype of the attribute
+	// syntax ------ getATTRIBUTENAME
+	// No parameter
+
+	int getAge()
+	{
+		return Age;
+	}
+	float getCGPA()
+	{
+		return CGPA;
+	}
+	char* getName() {
+
+		char* temp;
+		//int length = strlen(Name);		error dont know what
+		int length = 5;
+		temp = new char[length + 1];
+
+		for (int i = 0; i < length; i++) {
+			temp[i] = Name[i];
+		}
+		temp[length] = '\0';
+
+		return temp;
+	}
+};      // Statement Terminator(semicolon) is must at the end of the class
+
+int main() {
+
+	char MyName[6] = "Ikram";
+	char SecondName[6] = "Friend";
+	
+	//Object creation
+	Student one;
+	one.setAge(10);			//Calling
+	one.setCGPA(3.36);
+	one.setName(MyName);
+
+	Student two;
+	one.setAge(20);
+	one.setCGPA(3.99);
+	one.setName(SecondName);
+
+	cout << "One's Age is: " << endl << one.getAge() << endl;
+	cout << "One's CGPA is: " << endl << one.getCGPA() << endl;
+	cout << "One's Name is: " << endl << one.getName() << endl;
+
+	cout << "Two's Age is: " << endl << two.getAge() << endl;
+	cout << "Two's CGPA is: " << endl << two.getCGPA() << endl;
+	cout << "Two's Name is: " << endl << two.getName() << endl;
+
+
+	system("pause");
+	return 0;
+}
