@@ -1,0 +1,75 @@
+#include<iostream>
+using namespace std;          //Default copy constructor is not recommended when you have a pointer as an attribute
+
+class Student {
+	int age;
+	float gpa; 
+	char* name;
+public:
+	void setname(char* n) {
+		int size = strlen(n);
+		char* name = new char[size + 1];
+		for (int i = 0; i < size; i++) {
+			name[i] = n[i];
+		}
+		name[size] = '\0';
+	}
+	void setage(int a) {
+		age = a;
+	}
+	void setgpa(float c) {
+		gpa = c;
+	}
+
+	char* getname() {
+		int size = strlen(name);
+		char* temp = new char[size + 1];
+		for (int i = 0; i < size; i++) {
+			temp[i] = name[i];
+		}
+		temp[size] = '\0';
+
+		return temp;
+	}
+	int getage() {
+		return age;
+	}
+	float getgpa() {
+		return gpa;
+	}
+
+	Student() {
+		age = 0;
+		gpa = 0;
+		name = NULL;
+		cout << "Default constructor";
+	}
+	Student( const char* n, int a, float c) {
+		age = a;
+		gpa = c;
+		int len = strlen(n);
+		name = new char[len + 1];
+		for (int i = 0; i < len; i++) {
+			name[i] = n[i];
+		}
+		name[len] = '\0';
+	}
+	~Student() {
+		cout << "Destructor" << endl;
+		delete[] name;
+	}
+};
+
+int main() {
+
+	Student obj1("ikram", 21, 3.3);
+
+	Student obj2 = obj1;			// A copy constructor is called. but, Erred...
+
+	cout << "name: " << obj2.getname() << endl;
+	cout << "age: " << obj2.getage() << endl;
+	cout << "gpa: " << obj2.getgpa() << endl;
+
+	system("pause");
+	return 0;
+}
