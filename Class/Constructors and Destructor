@@ -1,0 +1,141 @@
+
+#include<iostream>
+using namespace std;
+
+class Student {
+private:
+	char* name;
+	int age;
+	float gpa;
+
+public:
+	void setname(char* n) {
+		int size = strlen(n);
+		char* name = new char[size + 1];
+		for (int i = 0; i < size; i++) {
+			name[i] = n[i];
+		}
+		name[size] = '\0';
+	}
+	void setage(int a) {
+		age = a;
+	}
+	void setgpa(float c) {
+		gpa = c;
+	}
+
+	char* getname() {
+		int size = strlen(name);
+		char* temp = new char[size + 1];
+		for (int i = 0; i < size; i++) {
+			temp[i] = name[i];
+		}
+		temp[size] = '\0';
+
+		return temp;
+	}
+	int getage() {
+		return age;
+	}
+	float getgpa() {
+		return gpa;
+	}
+
+	// Constructor:
+	// Special type of function
+	// public
+	// Name = ClassName
+	// No return type --------- Not even void
+	// Function Overloading
+	// 
+	
+	Student() {			// Non-parameterized Constructor/Default
+		cout << "Non parameterized constructor" << endl;
+		age = 0;
+		gpa = 0;
+		name = NULL;
+		// as we have instantiated two objs, and it is a default constructor,
+		// it will be called twice, once for obj one and second time for obj two.
+		// even you have not done anything to the objs.
+	}
+	
+	Student(int intParam) {			// parameterized consstructor
+		age = intParam;
+		gpa = 0;			//Recommended to make them equal to 0
+		name = NULL;
+		cout << "parameterized consstructor----integer parameter" << endl;
+	}
+	Student(char* input) {			// parameterized consstructor
+		age = 0;
+		gpa = 0;
+		int len = strlen(input);
+		char* name = new char[len + 1];
+		for (int i = 0; i < len; i++) {
+			name[i] = input[i];
+		}
+		name[len] = '\0';
+		cout << "parameterized consstructor----char pointer parameter" << endl;
+	}
+	
+	Student(char* n, int a, float c) {			// Or we can do that all at once
+		age = a;
+		gpa = c;
+		int len = strlen(n);
+		name = new char[len + 1];
+		for (int i = 0; i < len; i++) {
+			name[i] = n[i];
+		}
+		name[len] = '\0';
+	}
+
+	// Destructors
+	// Name = ~ClassName
+	// No return type-Not even void
+	// Called each time an object is created
+	// But initiated only once unlike constructors
+	// Always called in reverse order of creation-destructor for obj one will be called at the end
+	// two functions to perform
+	// 1: give a messasge
+	// 2: deallocate memory to avoid leakage
+  // It is must when you have a pointer as an attribute.
+	~Student() {
+		cout << "Destructor" << endl;
+		delete[] name;
+	}
+};
+
+int main() {
+	char MyName[20] = "Ikram";
+	char Second[20] = "Friend";
+
+	Student one, two;		//Instantiate/Create
+	//Any object created in main results in calling another function known as constructor
+
+	Student three(5);
+	Student Four(MyName);
+	
+	Student five(MyName, 20, 3.33);
+
+	//one.setname(myname);
+	//one.setage(20);
+	//one.setgpa(3.33);
+
+	//two.setname(second);
+	//two.setage(30);
+	//two.setgpa(2.22);
+
+	//cout << "one's name is: " << one.getname() << endl;
+	//cout << "one's age is: " << one.getage() << endl;
+	//cout << "one's cgpa is: " << one.getgpa() << endl;
+	//cout << endl;
+	//cout << "two's name is: " << two.getname() << endl;
+	//cout << "two's age is: " << two.getage() << endl;
+	//cout << "two's cgpa is: " << two.getgpa() << endl;
+	
+	cout << "five's name is: " << five.getname() << endl;
+	cout << "five's age is: " << five.getage() << endl;
+	cout << "five's cgpa is: " << five.getgpa() << endl;
+
+	system("pause");
+	return 0;
+}
