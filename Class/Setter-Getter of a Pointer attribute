@@ -1,0 +1,77 @@
+#include<iostream>
+using namespace std;
+
+class student {
+	char* name;
+	int age;
+	float gpa;
+
+public:
+	void setname(char* n) {
+		name = n;		//Incorrect way of writing a setter for a pointer
+		
+		int size = strlen(n);
+		char* name = new char[size + 1];
+		for (int i = 0; i < size; i++) {
+			name[i] = n[i];
+		}
+		name[size] = '\0';
+	}
+	void setage(int a) {
+		age = a;
+	}
+	void setgpa(float c) {
+		gpa = c;
+	}
+
+	char* getname() {
+		//return name;								// this is wrong
+													// In case of assigning the name to another char pointer (*x)
+													// Because getname returns a char pointer
+													// This will make a pointer = pointer
+													// *x = name------------x will point to the same location as name
+													// And, when you deallocate *x, it will cause error
+
+		int size = strlen(name);
+		char* temp = new char[size + 1];
+		for (int i = 0; i < size; i++) {
+			temp[i] = name[i];
+		}
+		temp[size] = '\0';
+
+		return temp;
+	}
+	int getage() {
+		return age;
+	}
+	float getgpa() {
+		return gpa;
+	}
+
+};
+
+int main() {
+	char MyName[20] = "Ikram";
+	char Second[20] = "Friend";
+
+	student one, two;
+
+	one.setname(MyName);
+	one.setage(20);
+	one.setgpa(3.33);
+
+	two.setname(Second);
+	two.setage(30);
+	two.setgpa(2.22);
+
+	cout << "One's Name is: " << one.getname() << endl;
+	cout << "One's Age is: " << one.getage() << endl;
+	cout << "One's CGPA is: " << one.getgpa() << endl;
+	cout << endl;
+	cout << "Two's Name is: " << two.getname() << endl;
+	cout << "Two's Age is: " << two.getage() << endl;
+	cout << "Two's CGPA is: " << two.getgpa() << endl;
+	
+	system("pause");
+	return 0;
+}
